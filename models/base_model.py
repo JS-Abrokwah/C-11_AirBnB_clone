@@ -15,6 +15,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
+            models.storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key in ["created_at", "updated_at"]:
@@ -31,6 +32,7 @@ class BaseModel:
     def save(self):
         """ updates the instance attribute update_at with current datetime"""
         self.update_at = datetime.today()
+        models.storage.save()
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__
